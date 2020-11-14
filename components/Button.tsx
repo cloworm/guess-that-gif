@@ -9,7 +9,11 @@ interface Props {
   onPress: () => void;
 }
 
-export default function Button({ label, path, onPress }: Props) {
+export default function Button({
+  label,
+  path,
+  onPress,
+}: Props) {
   if (path) {
     return (
       <Link href={path}>

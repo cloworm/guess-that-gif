@@ -10,7 +10,7 @@ export default function Game() {
       <main>
         <div className={styles.statusContainer}>
           <Lives number={3} />
-          <Score value="0" />
+          <Score value={0} />
         </div>
         <Gif />
 

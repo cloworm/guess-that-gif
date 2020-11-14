@@ -10,6 +10,14 @@ export default function Home() {
       </Head>
 
       <main>
+        <header>
+          <h1>
+            Guess That Gif<em>!</em>
+          </h1>
+        </header>
+
+        <br />
+
         <Button label="PLAY" />
         <Button label="LEADERBOARD" />
         <Button label="ABOUT" />

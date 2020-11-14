@@ -12,12 +12,16 @@ This project is a very minimal starter that includes 2 sample components, a glob
 
 ## Getting Started
 
+Install nvm and use the Node version as specified in [.nvmrc](.nvmrc)
+
+```bash
+nvm use
+```
+
 First, run the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.

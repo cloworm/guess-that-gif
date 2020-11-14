@@ -1,10 +1,11 @@
-name: check-typescript
+name: ci
 on: [push]
 jobs:
-  check-bats-version:
+  check-build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
       - run: npm install
-      - run: npm run type-check"
+      - run: npm run build
+      - run: npm run export

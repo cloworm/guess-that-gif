@@ -14,6 +14,7 @@ main {
   padding: 5rem 0;
   flex: 1;
   display: flex;
+  flex-wrap: wrap;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -27,7 +28,7 @@ code {
 }
 
 .container {
-  height: 100vh;
+  height: calc(100vh - 120px);
   display: flex;
   flex-direction: column;
   justify-content: center;

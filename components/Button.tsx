@@ -1,10 +1,36 @@
+import { useCallback } from 'react'
+
 import styles from './Button.module.css'
 import Link from 'next/link'
 
-export default function Button({ label }) {
+interface Props {
+  label: string;
+  path?: string;
+  onPress: () => void;
+}
+
+export default function Button({
+  label,
+  onPress,
+  path,
+}: Props) {
+  if (path) {
+    return (
+      <Link href={path}>
+        <a className={styles.btn}>{label}</a>
+      </Link>
+    )
+  }
+
+  const onClick = useCallback(
+    (event) => {
+      event.preventDefault();
+      onPress()
+    },
+    [onPress]
+  )
+
   return (
-    <Link href="/">
-      <a className={styles.btn}>{label}</a>
-    </Link>
+    <a href="#" onClick={onClick} className={styles.btn}>{label}</a>
   )
 }

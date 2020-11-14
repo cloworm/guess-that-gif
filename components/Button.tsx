@@ -11,8 +11,8 @@ interface Props {
 
 export default function Button({
   label,
-  path,
   onPress,
+  path,
 }: Props) {
   if (path) {
     return (

@@ -1,5 +1,4 @@
 import Head from 'next/head'
-import Footer from '../components/Footer'
 import Button from '../components/Button'
 
 export default function Home() {
@@ -16,7 +15,6 @@ export default function Home() {
         <Button label="ABOUT" />
       </main>
 
-      <Footer />
     </div>
   )
 }

@@ -4,6 +4,7 @@
 }
 
 .title {
+  cursor: pointer;
   letter-spacing: 1px;
   font-size: 1.5em;
 }

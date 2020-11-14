@@ -10,9 +10,9 @@ export default function Home() {
       </Head>
 
       <main>
-        <Button label="PLAY" />
-        <Button label="LEADERBOARD" />
-        <Button label="ABOUT" />
+        <Button label="PLAY" path="/game" />
+        <Button label="LEADERBOARD" path="/leaderboard" />
+        <Button label="ABOUT" path="/about" />
       </main>
 
     </div>

@@ -1,9 +1,13 @@
 .navbar {
+  height: 60px;
   background: #ccc;
-  padding: 0.75em 1em;
+  display: flex;
+  align-content: flex-start;
+  align-items: center;
 }
 
 .title {
+  padding-left: 10px;
   cursor: pointer;
   letter-spacing: 1px;
   font-size: 1.5em;

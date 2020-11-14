@@ -1,0 +1,10 @@
+.footer {
+  height: 60px;
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+}
+
+.link {
+  padding-right: 10px;
+}

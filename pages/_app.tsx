@@ -3,10 +3,10 @@ import type { AppProps } from 'next/app'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 
-function Application({ Component, pageProps }: AppProps) {
+function Application({ Component, pageProps, router: { pathname } }: AppProps) {
   return (
     <div>
-      <Navbar />
+      <Navbar hasBackButton={pathname !== "/" && pathname !== ""} />
       <Component {...pageProps} />
       <Footer />
     </div>

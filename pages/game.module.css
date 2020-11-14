@@ -1,0 +1,7 @@
+.statusContainer {
+  width: 100%;
+  padding: 10px;
+  align-self: flex-start;
+  display: flex;
+  justify-content: space-between;
+}

@@ -5,7 +5,7 @@ export default function Home() {
   return (
     <div className="container">
       <Head>
-        <title>Guess that Gif</title>
+        <title>Guess That Gif</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 

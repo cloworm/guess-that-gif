@@ -14,9 +14,9 @@ export default function Game() {
         </div>
         <Gif />
 
-        <Button label="Coarse" />
-        <Button label="Corse" />
-        <Button label="Course" />
+        <Button onPress={() => {console.log('pressed Coarse')}} label="Coarse" />
+        <Button onPress={() => {console.log('pressed Corse')}} label="Corse" />
+        <Button onPress={() => {console.log('pressed Course')}} label="Course" />
       </main>
     </div>
   )

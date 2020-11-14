@@ -1,7 +1,15 @@
+import { useCallback } from 'react'
+
 import styles from './Button.module.css'
 import Link from 'next/link'
 
-export default function Button({ label, path }) {
+interface Props {
+  label: string;
+  path?: string;
+  onPress: () => void;
+}
+
+export default function Button({ label, path, onPress }: Props) {
   if (path) {
     return (
       <Link href={path}>
@@ -11,6 +19,6 @@ export default function Button({ label, path }) {
   }
 
   return (
-    <a href="#" onClick={(event) => {event.preventDefault()}} className={styles.btn}>{label}</a>
+    <a href="#" onClick={(event) => {event.preventDefault(); onPress()}} className={styles.btn}>{label}</a>
   )
 }

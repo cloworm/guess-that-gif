@@ -6,7 +6,7 @@ import Link from 'next/link'
 interface Props {
   label: string;
   path?: string;
-  onPress: () => void;
+  onPress?: () => void;
 }
 
 export default function Button({
@@ -25,7 +25,7 @@ export default function Button({
   const onClick = useCallback(
     (event) => {
       event.preventDefault();
-      onPress()
+      onPress && onPress()
     },
     [onPress]
   )

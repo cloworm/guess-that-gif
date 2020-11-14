@@ -18,7 +18,15 @@ export default function Button({ label, path, onPress }: Props) {
     )
   }
 
+  const onClick = useCallback(
+    (event) => {
+      event.preventDefault();
+      onPress()
+    },
+    [onPress]
+  )
+
   return (
-    <a href="#" onClick={(event) => {event.preventDefault(); onPress()}} className={styles.btn}>{label}</a>
+    <a href="#" onClick={onClick} className={styles.btn}>{label}</a>
   )
 }

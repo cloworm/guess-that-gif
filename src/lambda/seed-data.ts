@@ -1,8 +1,7 @@
 require('dotenv').config()
-import * as faunadb from 'faunadb'
 import { APIGatewayEvent, Context } from 'aws-lambda'
 import { fetchJson } from './lib/fetchJson'
-import { WordSet } from '../../types'
+import { createDoc } from './queries/createDoc'
 
 interface HomophoneWords {
   text: string;
@@ -33,7 +32,7 @@ export async function handler (
   }
 }
 
-export async function createData(list: HomophoneSet[]) {
+export function createData(list: HomophoneSet[]) {
   const docs = list.map(async (item) => {
     const doc = {
       words: item.words.map((word) => word.text),
@@ -46,23 +45,7 @@ export async function createData(list: HomophoneSet[]) {
     return doc
   })
 
-  return docs
-}
-
-async function createDoc(set: WordSet) {
-  const q = faunadb.query
-  const adminClient = new faunadb.Client({
-    secret: process.env.FAUNADB_SERVER_SECRET || ''
-  })
-
-  return await adminClient.query(
-    q.Create(
-      q.Collection('WordSet'),
-      {
-        data: set
-      }
-    )
-  )
+  return Promise.all(docs)
 }
 
 export async function getHomophonePage(pageNum: number): Promise<HomophoneSet[]> {

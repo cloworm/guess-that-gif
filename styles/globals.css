@@ -29,6 +29,8 @@ code {
 
 .container {
   height: calc(100vh - 120px);
+  min-height: 500px;
+  min-width: 360px;
   display: flex;
   flex-direction: column;
   justify-content: center;

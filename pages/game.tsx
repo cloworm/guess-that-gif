@@ -2,7 +2,7 @@ import Score from '../components/Score'
 import Lives from '../components/Lives'
 import styles from './game.module.css'
 import Gif from '../components/Gif'
-import Button from '../components/Button'
+import GameButton from '../components/GameButton'
 
 export default function Game() {
   return (
@@ -14,9 +14,9 @@ export default function Game() {
         </div>
         <Gif />
 
-        <Button onPress={() => {console.log('pressed Coarse')}} label="Coarse" />
-        <Button onPress={() => {console.log('pressed Corse')}} label="Corse" />
-        <Button onPress={() => {console.log('pressed Course')}} label="Course" />
+        <GameButton onPress={() => {console.log('pressed Coarse')}} label="Coarse" />
+        <GameButton onPress={() => {console.log('pressed Corse')}} label="Corse" />
+        <GameButton onPress={() => {console.log('pressed Course')}} label="Course" />
       </main>
     </div>
   )

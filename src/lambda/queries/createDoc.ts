@@ -2,7 +2,6 @@ import { WordSet } from '../../../types'
 import * as faunadb from 'faunadb'
 
 export async function createDoc(set: WordSet) {
-  console.log('real createdoc called')
   const q = faunadb.query
   const adminClient = new faunadb.Client({
     secret: process.env.FAUNADB_SERVER_SECRET || ''

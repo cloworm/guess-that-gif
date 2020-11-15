@@ -1,5 +1,6 @@
 require('dotenv').config()
 import { APIGatewayEvent, Context } from 'aws-lambda'
+import { WordSet } from '../../types'
 import { fetchJson } from './lib/fetchJson'
 import { createDoc } from './queries/createDoc'
 
@@ -24,6 +25,11 @@ export async function handler (
     const homophoneList = await getHomophonePage(+pageNum)
     await createData(homophoneList)
 
+    return {
+      statusCode: 200,
+      body: 'OK'
+    }
+
   } catch(err) {
     return {
       statusCode: 500,
@@ -34,9 +40,9 @@ export async function handler (
 
 export function createData(list: HomophoneSet[]) {
   const docs = list.map(async (item) => {
-    const doc = {
+    const doc: WordSet = {
       words: item.words.map((word) => word.text),
-      index: item.id,
+      eid: item.id,
       numReports: 0
     }
 

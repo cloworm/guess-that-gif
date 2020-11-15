@@ -19,6 +19,6 @@ export interface CreateGameResponse {
 
 export interface WordSet {
   words: string[]
-  index: number
+  eid: number
   numReports: number
 }

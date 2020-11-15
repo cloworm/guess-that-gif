@@ -11,6 +11,6 @@ type Round {
 
 type WordSet {
   words: [String!]!
-  index: Int!
+  eid: ID!
   numReports: Int!
 }

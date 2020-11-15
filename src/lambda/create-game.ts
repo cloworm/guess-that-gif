@@ -2,7 +2,6 @@ require('dotenv').config()
 import * as faunadb from 'faunadb'
 import { APIGatewayEvent, Context } from 'aws-lambda'
 import {
-  Game,
   GameInput,
   Round,
 } from '../../types'

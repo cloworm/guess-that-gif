@@ -16,3 +16,9 @@ export interface Round {
 export interface CreateGameResponse {
   game: Game
 }
+
+export interface WordSet {
+  words: string[]
+  index: number
+  numReports: number
+}

@@ -1,8 +1,11 @@
-export interface Game {
+export interface GameInput {
   lives: number
   score: number
-  id: string
   round: Round
+}
+
+export interface Game extends GameInput {
+  _id?: string
 }
 
 export interface Round {

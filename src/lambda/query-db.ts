@@ -17,7 +17,7 @@ export async function handler (
 
     const ret: any = await adminClient.query(
       q.Create(
-        q.Collection('games'),
+        q.Collection('Game'),
         {
           data: {
             score: 0,
@@ -32,7 +32,12 @@ export async function handler (
 
     return {
       statusCode: 200,
-      body: JSON.stringify({ data: ret.data })
+      body: JSON.stringify({
+        data: {
+          id: ret.ref.id,
+          ...ret.data
+        }
+      })
     }
   } catch(err) {
     return {

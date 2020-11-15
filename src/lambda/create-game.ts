@@ -5,6 +5,9 @@ import {
   GameInput,
   Round,
 } from '../../types'
+import {
+  getRandomWordSet
+} from './queries/getRandomWordSet'
 
 export async function handler (
   _event: APIGatewayEvent,
@@ -28,8 +31,6 @@ export async function handler (
       )
     )
 
-    console.log('ret', ret)
-
     return {
       statusCode: 200,
       body: JSON.stringify({
@@ -48,8 +49,10 @@ export async function handler (
 }
 
 export async function createGame(): Promise<GameInput> {
+  const set = await getRandomWordSet()
+
   const round: Round = {
-    words: ['coarse', 'course', 'corse'],
+    words: set.data.words,
     giphyUrl: 'https://media.giphy.com/media/zwOgFlmzF98sM/giphy.gif'
   }
 

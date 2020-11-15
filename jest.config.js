@@ -3,7 +3,8 @@ module.exports = {
   testEnvironment: 'node',
   globals: {
     'ts-jest': {
-      babelConfig: true
+      tsconfig: 'tsconfig.test.json',
+      importHelpers: true,
     }
   }
 };

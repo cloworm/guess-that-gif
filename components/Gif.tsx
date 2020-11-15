@@ -1,7 +1,16 @@
 import styles from './Gif.module.css'
 
-export default function Gif() {
+interface Props {
+  url: string
+}
+
+export default function Gif({
+  url,
+}: Props) {
   return (
-    <div className={styles.placeholder}></div>
+    <img
+      src={url}
+      className={styles.img}
+    />
   )
 }

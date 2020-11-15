@@ -1,22 +1,38 @@
+import useFetch from 'use-http'
+
 import Score from '../components/Score'
 import Lives from '../components/Lives'
 import styles from './game.module.css'
 import Gif from '../components/Gif'
-import Button from '../components/Button'
+import GameButton from '../components/GameButton'
+import {
+  CreateGameResponse,
+} from '../types'
 
 export default function Game() {
+  const { error, data } = useFetch<CreateGameResponse>('/.netlify/functions/create-game', {}, [])
+
+  if (!data) return null
+  if (error) return `Oopsies ${error.message}`
+
   return (
     <div className="container">
       <main>
         <div className={styles.statusContainer}>
-          <Lives number={3} />
-          <Score value={0} />
+          <Lives number={data.game.lives} />
+          <Score value={data.game.score} />
         </div>
-        <Gif />
+        <Gif url={data.game.round.giphyUrl} />
 
-        <Button onPress={() => {console.log('pressed Coarse')}} label="Coarse" />
-        <Button onPress={() => {console.log('pressed Corse')}} label="Corse" />
-        <Button onPress={() => {console.log('pressed Course')}} label="Course" />
+        {
+          data.game.round.words.map((word) => (
+            <GameButton
+              key={word}
+              label={word}
+              onPress={() => {console.log(`pressed ${word}`)}}
+            />
+          ))
+        }
       </main>
     </div>
   )

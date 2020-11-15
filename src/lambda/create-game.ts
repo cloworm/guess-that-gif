@@ -1,3 +1,4 @@
+require('dotenv').config()
 import { APIGatewayEvent, Context } from 'aws-lambda'
 import {
   Game,

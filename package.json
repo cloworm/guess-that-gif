@@ -11,10 +11,11 @@
     "test:watch": "jest --watchAll",
     "type-check": "tsc",
     "build:lambda": "netlify-lambda build src/lambda",
-    "postinstall": "netlify-lambda install src/lambda",
-    "build:dev": "npm run build && npm run export"
+    "postinstall": "netlify-lambda install src/lambda"
   },
   "dependencies": {
+    "dotenv": "^8.2.0",
+    "faunadb": "^3.0.1",
     "netlify-lambda": "^2.0.1",
     "next": "10.0.1",
     "react": "17.0.1",

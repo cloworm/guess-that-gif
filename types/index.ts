@@ -6,13 +6,14 @@ export interface GameInput {
 
 export interface Game extends GameInput {
   _id?: string
+  roundHistory?: Round[]
 }
 
 export interface Round {
   words: string[]
   giphyUrl: string
   correctWord?: string
-  selectedWord?: string
+  guessedWord?: string
   wasCorrect?: boolean
 }
 

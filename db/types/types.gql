@@ -7,7 +7,7 @@ type Game {
 type Round {
   words: [String!]!
   giphyUrl: String!
-  selectedWord: String!
+  guessedWord: String!
 }
 
 type WordSet {

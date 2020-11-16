@@ -6,8 +6,8 @@ import {
   Round,
 } from '../../types'
 import {
-  getRound
-} from './queries/getRound'
+  generateRound
+} from './lib/generateRound'
 
 export async function handler (
   _event: APIGatewayEvent,
@@ -54,7 +54,7 @@ export async function handler (
 }
 
 export async function createGame(): Promise<GameInput> {
-  const round: Round = await getRound()
+  const round: Round = await generateRound()
 
   const game: GameInput = {
     score: 0,

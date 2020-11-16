@@ -3,6 +3,8 @@ import { APIGatewayEvent, Context } from 'aws-lambda'
 
 import { getGame } from './queries/getGame'
 import { Game } from '../../types'
+import { generateRound } from './lib/generateRound'
+import { updateGame } from './queries/updateGame'
 
 export async function handler (
   event: APIGatewayEvent,
@@ -18,7 +20,7 @@ export async function handler (
     }
 
     const game = await fetchGame(id)
-    const updatedGame = await submitGuess(game, guess)
+    const updatedGame = await submitGuess(id, game, guess)
 
     return {
       statusCode: 200,
@@ -38,10 +40,24 @@ export async function fetchGame(id: string) {
   return (await getGame(id)).data
 }
 
-export function submitGuess(game: Game, guess: string) {
+export async function submitGuess(id: string, game: Game, guess: string) {
   // checkGuess => T/F & currentGame ??
   const isCorrect = guess === game.round.correctWord
+  const round = await generateRound()
+  const oldRound = {
+    ...game.round,
+    wasCorrect: isCorrect,
+    guessedWord: guess
+  }
 
+  const updatedGame = {
+    score: isCorrect ? game.score + 1 : game.score,
+    lives: isCorrect ? game.lives : game.lives - 1,
+    round: round,
+    roundHistory: game.roundHistory ? [...game.roundHistory, oldRound] : [oldRound]
+  }
+
+  return await updateGame(id, updatedGame)
   // get new round & adds last response to round history
   // updateCurrentGame w/ score, lives,
 }

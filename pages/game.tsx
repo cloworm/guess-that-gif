@@ -4,6 +4,7 @@ import {
   useState,
   useEffect,
 } from 'react'
+import Router from 'next/router'
 
 import Score from '../components/Score'
 import Lives from '../components/Lives'
@@ -29,6 +30,12 @@ export default function Game() {
         method: 'GET',
       })).json()
       if (!response?.game) throw new Error('NO_GAME')
+      // TO DO - end game when no more lives
+      if (response.game.lives <= 0) {
+        alert(`Your Score Was ${response.game.score}. Nice`)
+        Router.push('/')
+      }
+      // TO DO - back end dont allow submitting rounds for dead games
       setGame(response.game)
     },
     [game]
@@ -38,7 +45,7 @@ export default function Game() {
   if (error) return `Oopsies ${error.message}`
 
   return (
-    <div className="container">
+    <div key={`${game.id}-${game.score}-${game.lives}`} className="container">
       <main>
         <div className={styles.statusContainer}>
           <Lives number={game.lives} />

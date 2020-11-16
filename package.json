@@ -8,7 +8,7 @@
     "start": "next start",
     "export": "next export",
     "test": "jest",
-    "test:watch": "jest --watchAll",
+    "test:watch": "jest --watchAll --no-watchman",
     "type-check": "tsc",
     "build:lambda": "netlify-lambda build src/lambda",
     "postinstall": "netlify-lambda install src/lambda",

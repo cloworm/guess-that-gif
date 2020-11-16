@@ -6,5 +6,12 @@ module.exports = {
       tsconfig: 'tsconfig.test.json',
       importHelpers: true,
     }
-  }
+  },
+  coverageDirectory: '<rootDir>/coverage',
+  collectCoverageFrom: [
+    'src/**/*.{js,jsx}',
+    'components/**/*.{js,jsx}',
+    'pages/**/*.{js,jsx}',
+    '!**/node_modules/**',
+  ],
 };

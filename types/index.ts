@@ -11,6 +11,9 @@ export interface Game extends GameInput {
 export interface Round {
   words: string[]
   giphyUrl: string
+  correctWord?: string
+  selectedWord?: string
+  wasCorrect?: boolean
 }
 
 export interface CreateGameResponse {

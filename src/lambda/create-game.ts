@@ -6,8 +6,8 @@ import {
   Round,
 } from '../../types'
 import {
-  getRandomWordSet
-} from './queries/getRandomWordSet'
+  getRound
+} from './queries/getRound'
 
 export async function handler (
   _event: APIGatewayEvent,
@@ -49,12 +49,7 @@ export async function handler (
 }
 
 export async function createGame(): Promise<GameInput> {
-  const set = await getRandomWordSet()
-
-  const round: Round = {
-    words: set.data.words,
-    giphyUrl: 'https://media.giphy.com/media/zwOgFlmzF98sM/giphy.gif'
-  }
+  const round: Round = await getRound()
 
   const game: GameInput = {
     score: 0,

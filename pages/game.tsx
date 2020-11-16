@@ -18,6 +18,7 @@ import {
 
 export default function Game() {
   const [game, setGame] = useState<GameType | null>(null)
+  const [submitting, setSubmitting] = useState<boolean>(false)
 
   const { error, data } = useFetch<CreateGameResponse>('/.netlify/functions/create-game', {}, [])
   useEffect(() => {
@@ -26,9 +27,17 @@ export default function Game() {
 
   const submitGuess = useCallback(
     async (word: string) => {
-      const response = await (await fetch(`/.netlify/functions/submit-guess?id=${game?.id}&guess=${word}`, {
-        method: 'GET',
-      })).json()
+      if (submitting) return
+      setSubmitting(true)
+      let response
+      try {
+        response = await (await fetch(`/.netlify/functions/submit-guess?id=${game?.id}&guess=${word}`, {
+          method: 'GET',
+        })).json()
+      } finally {
+        setSubmitting(false)
+      }
+
       if (!response?.game) throw new Error('NO_GAME')
       // TO DO - end game when no more lives
       if (response.game.lives <= 0) {
@@ -38,7 +47,7 @@ export default function Game() {
       // TO DO - back end dont allow submitting rounds for dead games
       setGame(response.game)
     },
-    [game]
+    [game, submitting]
   )
 
   if (!game) return null

@@ -9,8 +9,13 @@ const Giphy = giphy(process.env.GIPHY_API_KEY)
 
 export async function getRound() {
   const q = faunadb.query
+
+  if (!process.env.FAUNADB_SERVER_SECRET) {
+    throw new Error('MISSING_FAUNADB_SERVER_SECRET')
+  }
+
   const adminClient = new faunadb.Client({
-    secret: process.env.FAUNADB_SERVER_SECRET || ''
+    secret: process.env.FAUNADB_SERVER_SECRET
   })
 
   const maxEid = 18
@@ -21,13 +26,8 @@ export async function getRound() {
     const random = Math.floor(Math.random() * maxEid) + 1
     let res: any
     try {
-      res = await adminClient.query(
-        q.Get(
-          q.Match(q.Index('eid'), random)
-        )
-      )
     } catch(err) {
-      console.log('err', err)
+      console.log('ERROR_GET_ROUND', err)
     }
 
     if (res?.data?.words?.length > 0) {

@@ -5,7 +5,7 @@ export interface GameInput {
 }
 
 export interface Game extends GameInput {
-  _id?: string
+  id?: string
   roundHistory?: Round[]
 }
 

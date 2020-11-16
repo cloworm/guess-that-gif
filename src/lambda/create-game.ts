@@ -8,6 +8,7 @@ import {
 import {
   generateRound
 } from './lib/generateRound'
+import { transformGame } from './lib/transformGame'
 
 export async function handler (
   _event: APIGatewayEvent,
@@ -34,15 +35,7 @@ export async function handler (
     return {
       statusCode: 200,
       body: JSON.stringify({
-        game: {
-          id: res.ref.id,
-          score: res.data.score,
-          lives: res.data.lives,
-          round: {
-            words: res.data.round.words,
-            giphyUrl: res.data.round.giphyUrl
-          }
-        }
+        game: transformGame(res)
       })
     }
   } catch(err) {

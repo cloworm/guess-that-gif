@@ -5,6 +5,7 @@ import { getGame } from './queries/getGame'
 import { Game } from '../../types'
 import { generateRound } from './lib/generateRound'
 import { updateGame } from './queries/updateGame'
+import { transformGame } from './lib/transformGame'
 
 export async function handler (
   event: APIGatewayEvent,
@@ -25,7 +26,7 @@ export async function handler (
     return {
       statusCode: 200,
       body: JSON.stringify({
-        updatedGame
+        game: transformGame(updatedGame)
       })
     }
   } catch(err) {

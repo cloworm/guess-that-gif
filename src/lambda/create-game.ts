@@ -22,7 +22,7 @@ export async function handler (
 
     const game = await createGame()
 
-    const ret: any = await adminClient.query(
+    const res: any = await adminClient.query(
       q.Create(
         q.Collection('Game'),
         {
@@ -35,8 +35,13 @@ export async function handler (
       statusCode: 200,
       body: JSON.stringify({
         game: {
-          id: ret.ref.id,
-          ...ret.data
+          id: res.ref.id,
+          score: res.data.score,
+          lives: res.data.lives,
+          round: {
+            words: res.data.round.words,
+            giphyUrl: res.data.round.giphyUrl
+          }
         }
       })
     }

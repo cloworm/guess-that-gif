@@ -38,24 +38,24 @@ export async function generateRound() {
     if (res?.data?.words?.length > 0) {
       const words = res.data.words
       const correctWord = selectRandomWord(words)
-
       const giphyRes = await Giphy.random({
         tag: correctWord,
         rating: 'g'
       })
+      const giphyUrl = giphyRes?.data?.images?.downsized?.url
 
-      if (giphyRes?.data?.images?.downsized?.url) {
+      if (giphyUrl) {
         round = {
           words,
           correctWord,
-          giphyUrl: giphyRes?.data?.images?.downsized?.url
+          giphyUrl,
         }
         break
       }
     }
   }
 
-  if (typeof round === 'undefined') {
+  if (!round) {
     throw new Error('NO_ROUND_FOUND')
   }
 

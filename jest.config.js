@@ -6,5 +6,8 @@ module.exports = {
       tsconfig: 'tsconfig.test.json',
       importHelpers: true,
     }
-  }
+  },
+  "setupFiles": [
+    "<rootDir>/jest-setup.ts",
+  ]
 };

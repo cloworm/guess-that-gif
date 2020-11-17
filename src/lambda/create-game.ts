@@ -1,42 +1,30 @@
 require('dotenv').config()
-import * as faunadb from 'faunadb'
 import { APIGatewayEvent, Context } from 'aws-lambda'
 import {
   GameInput,
+  Game,
   Round,
 } from '../../types'
 import {
   generateRound
 } from './lib/generateRound'
+import {
+  createGame
+} from './queries/createGame'
 import { transformGame } from './lib/transformGame'
 
-export async function handler (
+export interface CreateGameResponse {
+  game: Game
+}
+
+export async function responser (
   _event: APIGatewayEvent,
   _context: Context
 ) {
   try {
-    const q = faunadb.query
-
-    const adminClient = new faunadb.Client({
-      secret: process.env.FAUNADB_SERVER_SECRET || ''
-    })
-
-    const game = await createGame()
-
-    const res: any = await adminClient.query(
-      q.Create(
-        q.Collection('Game'),
-        {
-          data: game
-        }
-      )
-    )
-
     return {
       statusCode: 200,
-      body: JSON.stringify({
-        game: transformGame(res)
-      })
+      body: JSON.stringify(response())
     }
   } catch(err) {
     return {
@@ -46,7 +34,13 @@ export async function handler (
   }
 }
 
-export async function createGame(): Promise<GameInput> {
+export async function response(): Promise<CreateGameResponse> {
+  return {
+    game: transformGame(await createGame(await generateGame()))
+  }
+}
+
+export async function generateGame(): Promise<GameInput> {
   const round: Round = await generateRound()
 
   const game: GameInput = {

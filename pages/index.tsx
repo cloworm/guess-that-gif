@@ -14,7 +14,6 @@ export default function Home() {
         <Button label="LEADERBOARD" path="/leaderboard" />
         <Button label="ABOUT" path="/about" />
       </main>
-
     </div>
   )
 }

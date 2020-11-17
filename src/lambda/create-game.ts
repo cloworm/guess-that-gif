@@ -17,7 +17,7 @@ export interface CreateGameResponse {
   game: Game
 }
 
-export async function responser (
+export async function handler (
   _event: APIGatewayEvent,
   _context: Context
 ) {

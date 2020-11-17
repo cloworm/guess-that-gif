@@ -5,13 +5,10 @@ import {
   Game,
   Round,
 } from '../../types'
-import {
-  generateRound
-} from './lib/generateRound'
-import {
-  createGame
-} from './queries/createGame'
+import { generateRound } from './lib/generateRound'
 import { transformGame } from './lib/transformGame'
+import { respond } from './lib/respond'
+import { createGame } from './queries/createGame'
 
 export interface CreateGameResponse {
   game: Game
@@ -21,17 +18,7 @@ export async function handler (
   _event: APIGatewayEvent,
   _context: Context
 ) {
-  try {
-    return {
-      statusCode: 200,
-      body: JSON.stringify(response())
-    }
-  } catch(err) {
-    return {
-      statusCode: 500,
-      body: `Error: ${err}`
-    }
-  }
+  return respond(response)
 }
 
 export async function response(): Promise<CreateGameResponse> {

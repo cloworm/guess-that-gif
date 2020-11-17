@@ -2,20 +2,31 @@ import { WordSet } from '../../types'
 import {
   getHomophonePage,
   createData,
+  response,
 } from './seed-data'
 
-const list = [{
-  id: 1,
-  words: [{
-    text: 'course'
-  }, {
-    text: 'corse'
-  }, {
-    text: 'coarse'
-  }]
-}]
+const list = [
+  {
+    id: 1,
+    words: [{
+      text: 'course'
+    }, {
+      text: 'corse'
+    }, {
+      text: 'coarse'
+    }]
+  },
+  {
+    id: 2,
+    words: [{
+      text: 'horse'
+    }, {
+      text: 'hoarse'
+    }]
+  },
+]
 
-jest.mock(('./lib/fetchJson.ts'), () => {
+jest.mock(('./lib/fetchJson'), () => {
   return {
     fetchJson: () => {
       return Promise.resolve(list)
@@ -23,7 +34,7 @@ jest.mock(('./lib/fetchJson.ts'), () => {
   }
 })
 
-jest.mock('./queries/createDoc.ts', () => {
+jest.mock('./queries/createDoc', () => {
   return {
     createDoc: (set: WordSet) => {
       return Promise.resolve(set)
@@ -31,13 +42,18 @@ jest.mock('./queries/createDoc.ts', () => {
   }
 })
 
+test('response', async () => {
+  const { count } = await response('1')
+  expect(count).toBe(2)
+})
+
 test('createData', async () => {
   const res = await createData(list)
-  expect(res).toHaveLength(1)
+  expect(res).toHaveLength(2)
   expect(res[0]).toHaveProperty('words')
 })
 
 test('getHomophonePage', async () => {
   const res = await getHomophonePage(1)
-  expect(res).toHaveLength(1)
+  expect(res).toHaveLength(2)
 })

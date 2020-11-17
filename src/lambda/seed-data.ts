@@ -2,6 +2,7 @@ require('dotenv').config()
 import { APIGatewayEvent, Context } from 'aws-lambda'
 import { WordSet } from '../../types'
 import { fetchJson } from './lib/fetchJson'
+import { respond } from './lib/respond'
 import { createDoc } from './queries/createDoc'
 
 interface HomophoneWords {
@@ -17,24 +18,17 @@ export async function handler (
   event: APIGatewayEvent,
   _context: Context
 ) {
-  try {
-    const pageNum = event?.queryStringParameters?.pageNum
-    if (typeof pageNum === 'undefined') {
-      throw new Error('INVALID_PAGENUM')
-    }
-    const homophoneList = await getHomophonePage(+pageNum)
-    await createData(homophoneList)
+  return respond(() => response(event?.queryStringParameters?.pageNum))
+}
 
-    return {
-      statusCode: 200,
-      body: 'OK'
-    }
+export async function response(pageNum?: string) {
+  if (typeof pageNum === 'undefined') {
+    throw new Error('INVALID_PAGENUM')
+  }
+  const homophoneList = await getHomophonePage(+pageNum)
 
-  } catch(err) {
-    return {
-      statusCode: 500,
-      body: `Error: ${err}`
-    }
+  return {
+    count: (await createData(homophoneList)).length
   }
 }
 

@@ -40,7 +40,7 @@ export function httpRespond () {
       } catch(err) {
         return {
           statusCode: 500,
-          body: err.stack
+          body: `Error: ${err.name} – ${err.message} \n${err.stack}`
         }
       }
     }

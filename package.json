@@ -7,8 +7,8 @@
     "build": "next build",
     "start": "next start",
     "export": "next export",
-    "test": "jest",
-    "test:watch": "jest --watchAll",
+    "test": "jest --runInBand",
+    "test:watch": "jest --watchAll --runInBand",
     "type-check": "tsc",
     "build:lambda": "netlify-lambda build src/lambda",
     "postinstall": "netlify-lambda install src/lambda"

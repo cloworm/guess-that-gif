@@ -20,7 +20,7 @@ export default function Game() {
   const [game, setGame] = useState<GameType | null>(null)
   const [submitting, setSubmitting] = useState<boolean>(false)
 
-  const { error, data } = useFetch<CreateGameResponse>('/.netlify/functions/create-game', {}, [])
+  const { error, data } = useFetch<CreateGameResponse>('/.netlify/functions/create-game', { method: 'post' }, [])
   useEffect(() => {
     if (data?.game) setGame(data.game)
   }, [data])

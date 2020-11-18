@@ -8,6 +8,7 @@ import { respond } from './lib/respond'
 import { transformGame } from './lib/transformGame'
 import { updateGame } from './queries/updateGame'
 
+// TODO: httpMethod('POST')
 export async function handler (
   event: APIGatewayEvent,
   _context: Context

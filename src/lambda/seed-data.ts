@@ -14,6 +14,7 @@ interface HomophoneSet {
   words: HomophoneWords[];
 }
 
+// TODO: httpMethod('POST')
 export async function handler (
   event: APIGatewayEvent,
   _context: Context

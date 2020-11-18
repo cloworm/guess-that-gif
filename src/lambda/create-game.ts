@@ -1,5 +1,4 @@
 require('dotenv').config()
-import { APIGatewayEvent, Context } from 'aws-lambda'
 import {
   GameInput,
   Game,
@@ -8,18 +7,14 @@ import {
 import { generateRound } from './lib/generateRound'
 import { transformGame } from './lib/transformGame'
 import { respond } from './lib/respond'
+import { httpMethod } from './lib/httpMethod'
 import { createGame } from './queries/createGame'
 
 export interface CreateGameResponse {
   game: Game
 }
 
-export async function handler (
-  _event: APIGatewayEvent,
-  _context: Context
-) {
-  return respond(response)
-}
+export const handler = httpMethod('POST', () => respond(response))
 
 export async function response(): Promise<CreateGameResponse> {
   return {

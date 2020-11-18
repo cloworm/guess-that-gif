@@ -1,8 +1,10 @@
 require('dotenv').config()
-import { APIGatewayEvent, Context } from 'aws-lambda'
+import { APIGatewayEvent } from 'aws-lambda'
+import compose from 'compose-function'
+
 import { WordSet } from '../../types'
+import { httpMethod, httpRespond, Handler } from './lib/http'
 import { fetchJson } from './lib/fetchJson'
-import { respond } from './lib/respond'
 import { createDoc } from './queries/createDoc'
 
 interface HomophoneWords {
@@ -14,13 +16,10 @@ interface HomophoneSet {
   words: HomophoneWords[];
 }
 
-// TODO: httpMethod('POST')
-export async function handler (
-  event: APIGatewayEvent,
-  _context: Context
-) {
-  return respond(() => response(event?.queryStringParameters?.pageNum))
-}
+export const handler: Handler = compose(
+  httpMethod('POST'),
+  httpRespond(),
+)((event: APIGatewayEvent) => response(event?.queryStringParameters?.pageNum))
 
 export async function response(pageNum?: string) {
   if (typeof pageNum === 'undefined') {

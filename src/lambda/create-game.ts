@@ -1,20 +1,24 @@
 require('dotenv').config()
+import compose from 'compose-function'
+
 import {
   GameInput,
   Game,
   Round,
 } from '../../types'
 import { generateRound } from './lib/generateRound'
+import { httpMethod, httpRespond, Handler } from './lib/http'
 import { transformGame } from './lib/transformGame'
-import { respond } from './lib/respond'
-import { httpMethod } from './lib/httpMethod'
 import { createGame } from './queries/createGame'
 
 export interface CreateGameResponse {
   game: Game
 }
 
-export const handler = httpMethod('POST', () => respond(response))
+export const handler: Handler = compose(
+  httpMethod('POST'),
+  httpRespond(),
+)(response)
 
 export async function response(): Promise<CreateGameResponse> {
   return {

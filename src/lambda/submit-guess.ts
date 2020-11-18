@@ -1,15 +1,18 @@
 require('dotenv').config()
 import { APIGatewayEvent } from 'aws-lambda'
+import compose from 'compose-function'
 
 import { getGame } from './queries/getGame'
 import { Game } from '../../types'
 import { generateRound } from './lib/generateRound'
-import { respond } from './lib/respond'
-import { httpMethod } from './lib/httpMethod'
+import { httpMethod, httpRespond, Handler } from './lib/http'
 import { transformGame } from './lib/transformGame'
 import { updateGame } from './queries/updateGame'
 
-export const handler = httpMethod('POST', (event: APIGatewayEvent) => {
+export const handler: Handler = compose(
+  httpMethod('POST'),
+  httpRespond(),
+)((event: APIGatewayEvent) => {
   const {
     id,
     guess
@@ -18,7 +21,7 @@ export const handler = httpMethod('POST', (event: APIGatewayEvent) => {
     throw new Error('INVALID_QUERY_STRING')
   }
 
-  return respond(() => response({ id, guess }))
+  return response({ id, guess })
 })
 
 export async function response({ id, guess }: { id: string, guess: string}) {

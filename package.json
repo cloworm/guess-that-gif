@@ -14,6 +14,8 @@
     "postinstall": "netlify-lambda install src/lambda"
   },
   "dependencies": {
+    "@types/compose-function": "0.0.30",
+    "compose-function": "^3.0.3",
     "dotenv": "^8.2.0",
     "encoding": "^0.1.13",
     "faunadb": "^3.0.1",

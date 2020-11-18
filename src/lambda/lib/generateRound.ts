@@ -18,7 +18,7 @@ export async function generateRound() {
     secret: process.env.FAUNADB_SERVER_SECRET
   })
 
-  const maxEid = 18
+  const maxEid = 350
   const maxTries = 50
   let round: Round | undefined
 

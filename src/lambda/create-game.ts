@@ -16,8 +16,8 @@ export interface CreateGameResponse {
 }
 
 export const handler: Handler = compose(
-  httpMethod('POST'),
   httpRespond(),
+  httpMethod('POST'),
 )(response)
 
 export async function response(): Promise<CreateGameResponse> {

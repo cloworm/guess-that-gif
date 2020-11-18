@@ -17,8 +17,8 @@ interface HomophoneSet {
 }
 
 export const handler: Handler = compose(
-  httpMethod('POST'),
   httpRespond(),
+  httpMethod('GET'),
 )((event: APIGatewayEvent) => response(event?.queryStringParameters?.pageNum))
 
 export async function response(pageNum?: string) {

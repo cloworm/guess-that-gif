@@ -10,8 +10,8 @@ import { transformGame } from './lib/transformGame'
 import { updateGame } from './queries/updateGame'
 
 export const handler: Handler = compose(
-  httpMethod('POST'),
   httpRespond(),
+  httpMethod('POST'),
 )((event: APIGatewayEvent) => {
   const {
     id,

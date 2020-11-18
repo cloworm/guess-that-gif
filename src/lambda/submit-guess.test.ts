@@ -1,18 +1,41 @@
-import { fetchGame } from './submit-guess'
+import { response } from './submit-guess'
+import { getGame } from './queries/getGame'
 
-// TODO: This doesn't really test anything since getGame is mocked, but this is better than an empty file, which fails.
-test('fetchGame returns the game', async () => {
-  const result = await fetchGame('id arg can be anything because getGame is mocked')
-  expect(result.lives).toBe(2)
+const mockedGetGame = getGame as jest.Mock<any>
+
+beforeEach(() => {
+  mockedGetGame.mockImplementationOnce((_data) => (Promise.resolve({
+    ref: {
+      id: '1001',
+    },
+    data: {
+      score: 0,
+      lives: 3,
+      round: {
+        words: ['bask', 'basque'],
+        correctWord: 'basque',
+        giphyUrl: 'https://giphy.com/fake_basque_image.gif'
+      }
+    }
+  })))
 })
 
-// TODO
-// test('submitGuess correct', () => {
-//   const result = submitGuess('1')
-//   expect(result.lives).toBe(3)
-// })
+describe('correct guess', () => {
+  test('increments score, does not update lives, adds a new round', async () => {
+    const { game } = await response({ id: '1001', guess: 'basque' })
+    expect(game.lives).toBe(3)
+    expect(game.score).toBe(1)
+    expect(game.id).toBe('1001')
+    expect(JSON.stringify(game.round.words)).toBe(JSON.stringify(['hear', 'here']))
+  })
+})
 
-// test('submitGuess correct', () => {
-//   const result = submitGuess('1')
-//   expect(result.lives).toBe(2)
-// })
+describe('incorrect guess', () => {
+  test('decrements lives, does not update score, adds a new round', async () => {
+    const { game } = await response({ id: '1001', guess: 'bask' })
+    expect(game.lives).toBe(2)
+    expect(game.score).toBe(0)
+    expect(game.id).toBe('1001')
+    expect(JSON.stringify(game.round.words)).toBe(JSON.stringify(['hear', 'here']))
+  })
+})

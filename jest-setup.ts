@@ -1,3 +1,5 @@
+import { Game } from './types'
+
 jest.mock('./src/lambda/queries/createGame', () => {
   return {
     createGame: jest.fn((_data) => (Promise.resolve({
@@ -15,6 +17,18 @@ jest.mock('./src/lambda/queries/createGame', () => {
     })))
   }
 })
+
+jest.mock('./src/lambda/queries/updateGame', () => {
+  return {
+    updateGame: jest.fn((id: string, data: Game) => (Promise.resolve({
+      ref: {
+        id,
+      },
+      data,
+    })))
+  }
+})
+
 jest.mock('./src/lambda/queries/getGame', () => {
   return {
     getGame: jest.fn((_data) => (Promise.resolve({

@@ -1,18 +1,15 @@
 require('dotenv').config()
-import { APIGatewayEvent, Context } from 'aws-lambda'
+import { APIGatewayEvent } from 'aws-lambda'
 
 import { getGame } from './queries/getGame'
 import { Game } from '../../types'
 import { generateRound } from './lib/generateRound'
 import { respond } from './lib/respond'
+import { httpMethod } from './lib/httpMethod'
 import { transformGame } from './lib/transformGame'
 import { updateGame } from './queries/updateGame'
 
-// TODO: httpMethod('POST')
-export async function handler (
-  event: APIGatewayEvent,
-  _context: Context
-) {
+export const handler = httpMethod('POST', (event: APIGatewayEvent) => {
   const {
     id,
     guess
@@ -22,7 +19,7 @@ export async function handler (
   }
 
   return respond(() => response({ id, guess }))
-}
+})
 
 export async function response({ id, guess }: { id: string, guess: string}) {
   const game: Game = (await getGame(id)).data

@@ -1,11 +1,10 @@
-import useFetch from 'use-http'
+import useFetch, { CachePolicies } from 'use-http'
 import {
   useCallback,
   useState,
   useEffect,
 } from 'react'
 import Router from 'next/router'
-
 import Score from '../components/Score'
 import Lives from '../components/Lives'
 import styles from './game.module.css'
@@ -20,7 +19,7 @@ export default function Game() {
   const [game, setGame] = useState<GameType | null>(null)
   const [submitting, setSubmitting] = useState<boolean>(false)
 
-  const { error, data } = useFetch<CreateGameResponse>('/.netlify/functions/create-game', { method: 'post' }, [])
+  const { error, data } = useFetch<CreateGameResponse>('/.netlify/functions/create-game', { method: 'post', cachePolicy: CachePolicies.NO_CACHE }, [])
   useEffect(() => {
     if (data?.game) setGame(data.game)
   }, [data])
@@ -32,7 +31,7 @@ export default function Game() {
       let response
       try {
         response = await (await fetch(`/.netlify/functions/submit-guess?id=${game?.id}&guess=${word}`, {
-          method: 'GET',
+          method: 'POST',
         })).json()
       } finally {
         setSubmitting(false)

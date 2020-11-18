@@ -2,5 +2,9 @@
   "files.exclude": {
     "**/.next": true,
     "/lambda": true
-  }
+  },
+  "cSpell.ignoreWords": [
+    "faunadb",
+    "giphy"
+  ]
 }

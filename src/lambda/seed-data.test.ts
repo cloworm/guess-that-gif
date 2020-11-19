@@ -4,6 +4,16 @@ import {
   createData,
   response,
 } from './seed-data'
+import { apiGatewayEvent } from './testing/apiGatewayEvent'
+
+const event = apiGatewayEvent(
+  {
+    httpMethod: 'GET',
+    queryStringParameters: {
+      pageNum: '1',
+    }
+  }
+)
 
 const list = [
   {
@@ -43,7 +53,7 @@ jest.mock('./queries/createDoc', () => {
 })
 
 test('response', async () => {
-  const { count } = await response('1')
+  const { count } = await response(event)
   expect(count).toBe(2)
 })
 

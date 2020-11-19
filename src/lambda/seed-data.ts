@@ -19,9 +19,10 @@ interface HomophoneSet {
 export const handler: Handler = compose(
   httpRespond(),
   httpMethod('GET'),
-)((event: APIGatewayEvent) => response(event?.queryStringParameters?.pageNum))
+)(response)
 
-export async function response(pageNum?: string) {
+export async function response(event: APIGatewayEvent) {
+  const pageNum = event?.queryStringParameters?.pageNum
   if (typeof pageNum === 'undefined') {
     throw new Error('INVALID_PAGENUM')
   }

@@ -12,7 +12,9 @@ import { updateGame } from './queries/updateGame'
 export const handler: Handler = compose(
   httpRespond(),
   httpMethod('POST'),
-)((event: APIGatewayEvent) => {
+)(response)
+
+export async function response(event: APIGatewayEvent) {
   const {
     id,
     guess
@@ -21,10 +23,6 @@ export const handler: Handler = compose(
     throw new Error('INVALID_QUERY_STRING')
   }
 
-  return response({ id, guess })
-})
-
-export async function response({ id, guess }: { id: string, guess: string}) {
   const game: Game = (await getGame(id)).data
   const isCorrect = guess === game.round.correctWord
   // TODO: Only generate and assign a new round is next value of `lives` is greater than 0.

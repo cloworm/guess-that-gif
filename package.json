@@ -29,6 +29,7 @@
   },
   "devDependencies": {
     "@babel/preset-typescript": "^7.12.1",
+    "@serverless/event-mocks": "^1.1.1",
     "@types/aws-lambda": "^8.10.64",
     "@types/giphy-api": "^2.0.2",
     "@types/jest": "^26.0.15",

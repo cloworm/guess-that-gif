@@ -12,9 +12,7 @@ import { updateGame } from './queries/updateGame'
 export const handler: Handler = compose(
   httpRespond(),
   httpMethod('POST'),
-)(response)
-
-export async function response(event: APIGatewayEvent) {
+)(async (event: APIGatewayEvent) => {
   const {
     id,
     guess
@@ -43,4 +41,4 @@ export async function response(event: APIGatewayEvent) {
   return {
     game: transformGame(updatedGame)
   }
-}
+})

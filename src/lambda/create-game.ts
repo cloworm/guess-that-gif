@@ -18,13 +18,9 @@ export interface CreateGameResponse {
 export const handler: Handler = compose(
   httpRespond(),
   httpMethod('POST'),
-)(response)
-
-export async function response(): Promise<CreateGameResponse> {
-  return {
-    game: transformGame(await createGame(await generateGame()))
-  }
-}
+)(async () => ({
+  game: transformGame(await createGame(await generateGame()))
+}))
 
 export async function generateGame(): Promise<GameInput> {
   const round: Round = await generateRound()

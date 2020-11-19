@@ -19,9 +19,7 @@ interface HomophoneSet {
 export const handler: Handler = compose(
   httpRespond(),
   httpMethod('GET'),
-)(response)
-
-export async function response(event: APIGatewayEvent) {
+)(async (event: APIGatewayEvent) => {
   const pageNum = event?.queryStringParameters?.pageNum
   if (typeof pageNum === 'undefined') {
     throw new Error('INVALID_PAGENUM')
@@ -31,7 +29,7 @@ export async function response(event: APIGatewayEvent) {
   return {
     count: (await createData(homophoneList)).length
   }
-}
+})
 
 export function createData(list: HomophoneSet[]) {
   const docs = list.map(async (item) => {

@@ -2,9 +2,9 @@ import { WordSet } from '../../types'
 import {
   getHomophonePage,
   createData,
-  response,
+  handler,
 } from './seed-data'
-import { apiGatewayEvent } from './testing/apiGatewayEvent'
+import { apiGatewayEvent, context, parse } from './testing'
 
 const event = apiGatewayEvent(
   {
@@ -52,8 +52,15 @@ jest.mock('./queries/createDoc', () => {
   }
 })
 
-test('response', async () => {
-  const { count } = await response(event)
+test('only supports GET requests', async () => {
+  const { statusCode, body } = await handler(apiGatewayEvent({ httpMethod: 'POST' }), context)
+  expect(statusCode).toBe(500)
+  expect(body).toContain("HTTP method 'GET' is required")
+})
+
+test('responds with the count of records created', async () => {
+  const { statusCode, body: { count } } = parse(await handler(event, context))
+  expect(statusCode).toBe(200)
   expect(count).toBe(2)
 })
 

@@ -1,11 +1,20 @@
-import { response } from './create-game'
+import { handler } from './create-game'
 import { createGame } from './queries/createGame'
 import { GameInput } from '../../types'
+import { apiGatewayEvent, context, parse } from './testing'
 
 const mockedCreateGame = createGame as jest.Mock<any>
 
+test('only supports POST requests', async () => {
+  const { statusCode, body } = await handler(apiGatewayEvent({ httpMethod: 'GET' }), context)
+  expect(statusCode).toBe(500)
+  expect(body).toContain("HTTP method 'POST' is required")
+})
+
 test('response with default mocked data', async () => {
-  const { game } = await response()
+  const { statusCode, body: { game } } = parse(await handler(apiGatewayEvent({ httpMethod: 'POST' }), context))
+
+  expect(statusCode).toBe(200)
   expect(game.id).toBe('1')
   expect(game.score).toBe(0)
   expect(game.lives).toBe(3)
@@ -28,7 +37,9 @@ test('response when mocking specific data', async () => {
     }
   })))
 
-  const { game } = await response()
+  const { statusCode, body: { game } } = parse(await handler(apiGatewayEvent({ httpMethod: 'POST' }), context))
+
+  expect(statusCode).toBe(200)
   expect(game.id).toBe('2')
   expect(game.score).toBe(0)
   expect(game.lives).toBe(3)

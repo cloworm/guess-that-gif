@@ -1,6 +1,6 @@
-import { response } from './submit-guess'
+import { handler } from './submit-guess'
 import { getGame } from './queries/getGame'
-import { apiGatewayEvent } from './testing/apiGatewayEvent'
+import { apiGatewayEvent, context, parse } from './testing'
 
 const mockedGetGame = getGame as jest.Mock<any>
 
@@ -21,17 +21,23 @@ beforeEach(() => {
   })))
 })
 
+test('only supports POST requests', async () => {
+  const { statusCode, body } = await handler(apiGatewayEvent({ httpMethod: 'GET' }), context)
+  expect(statusCode).toBe(500)
+  expect(body).toContain("HTTP method 'POST' is required")
+})
+
 describe('correct guess', () => {
   test('increments score, does not update lives, adds a new round', async () => {
-    const { game } = await response(apiGatewayEvent(
-      {
-        httpMethod: 'POST',
-        queryStringParameters: {
-          id: '1001',
-          guess: 'basque',
-        }
+    const { statusCode, body: { game } } = parse(await handler(apiGatewayEvent({
+      httpMethod: 'POST',
+      queryStringParameters: {
+        id: '1001',
+        guess: 'basque',
       }
-    ))
+    }), context))
+
+    expect(statusCode).toBe(200)
     expect(game.lives).toBe(3)
     expect(game.score).toBe(1)
     expect(game.id).toBe('1001')
@@ -41,15 +47,15 @@ describe('correct guess', () => {
 
 describe('incorrect guess', () => {
   test('decrements lives, does not update score, adds a new round', async () => {
-    const { game } = await response(apiGatewayEvent(
-      {
-        httpMethod: 'POST',
-        queryStringParameters: {
-          id: '1001',
-          guess: 'bask',
-        }
+    const { statusCode, body: { game } } = parse(await handler(apiGatewayEvent({
+      httpMethod: 'POST',
+      queryStringParameters: {
+        id: '1001',
+        guess: 'bask',
       }
-    ))
+    }), context))
+
+    expect(statusCode).toBe(200)
     expect(game.lives).toBe(2)
     expect(game.score).toBe(0)
     expect(game.id).toBe('1001')

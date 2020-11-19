@@ -1,0 +1,17 @@
+type Game {
+  lives: Int!
+  score: Int!
+  round: Round!
+}
+
+type Round {
+  words: [String!]!
+  giphyUrl: String!
+  guessedWord: String!
+}
+
+type WordSet {
+  words: [String!]!
+  eid: ID!
+  numReports: Int!
+}

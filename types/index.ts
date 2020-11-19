@@ -1,15 +1,28 @@
-export interface Game {
+export interface GameInput {
   lives: number
   score: number
-  id: string
   round: Round
+}
+
+export interface Game extends GameInput {
+  id?: string
+  roundHistory?: Round[]
 }
 
 export interface Round {
   words: string[]
   giphyUrl: string
+  correctWord?: string
+  guessedWord?: string
+  wasCorrect?: boolean
 }
 
 export interface CreateGameResponse {
   game: Game
+}
+
+export interface WordSet {
+  words: string[]
+  eid: number
+  numReports: number
 }

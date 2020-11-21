@@ -38,7 +38,6 @@ export function httpRespond () {
           body: JSON.stringify(await inner(event, context))
         }
       } catch(err) {
-        console.error(err)
         return {
           statusCode: 500,
           body: `Error: ${err.name} – ${err.message} \n${err.stack}`

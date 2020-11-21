@@ -356,4 +356,27 @@ export default Array.from(new Set([
   "my pleasure",
   "guilty",
   "my bad",
+
+  // Custom animals
+  "cat",
+  "dog",
+  "fish",
+  "bear",
+  "lion",
+  "tiger",
+  "elephant",
+  "giraffe",
+  "zebra",
+  "bug",
+  "spider",
+  "pig",
+  "bird",
+  "lizard",
+  "parrot",
+
+  // Custom verbs
+  "run",
+  "swim",
+  "jump",
+  "hug",
 ]))

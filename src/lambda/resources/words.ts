@@ -268,7 +268,6 @@ export default Array.from(new Set([
   "wishy-washy",
   "wonky",
   "xylophone",
-  "yo-yo",
   "zigzag",
   "zonked",
   "zoom",
@@ -325,25 +324,19 @@ export default Array.from(new Set([
   "cray",
 
   // https://www.webopedia.com/quick_ref/textmessageabbreviations.asp
-  "rofl",
   "stfu",
   "lmk",
   "ily",
   "yolo",
   "smh",
-  "lmfao",
   "nvm",
   "ikr",
   "ofc",
 
   // https://preply.com/en/blog/2020/05/07/the-most-used-internet-abbreviations-for-texting-and-tweeting/
-  "lol",
   "asap",
-  "fyi",
   "g2g",
-  "msg",
   "ttyl",
-  "imo",
 
   // Custom
   "mouse",

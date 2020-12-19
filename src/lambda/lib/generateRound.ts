@@ -7,7 +7,7 @@ import {
 
 const Giphy = giphy(process.env.GIPHY_API_KEY)
 
-export async function generateRound() {
+export async function generateRound(): Promise<Round> {
   const maxTries = 50
   let round: Round | undefined
 
@@ -40,11 +40,11 @@ export async function generateRound() {
   return round
 }
 
-function selectRandomWord() {
+function selectRandomWord(): string {
   const idx = Math.floor(Math.random() * allWords.length)
   return allWords[idx]
 }
 
-function randTF() {
+function randTF(): boolean {
   return Math.random() < 0.5
 }

@@ -1,6 +1,6 @@
-import { GameQueryResult } from '../../../types'
+import { Game, GameQueryResult } from '../../../types'
 
-export function transformGame(gameResponse: GameQueryResult) {
+export function transformGame(gameResponse: GameQueryResult): Game {
   return {
     id: gameResponse.ref.id,
     score: gameResponse.data.score,

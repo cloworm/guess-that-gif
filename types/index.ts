@@ -32,3 +32,7 @@ export interface Round {
 export interface CreateGameResponse {
   game: Game
 }
+
+export interface SubmitGuessResponse {
+  game: Game
+}

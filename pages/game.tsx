@@ -12,6 +12,7 @@ import Gif from '../components/Gif'
 import GameButton from '../components/GameButton'
 import {
   CreateGameResponse,
+  SubmitGuessResponse,
   Game as GameType,
 } from '../types'
 
@@ -28,7 +29,7 @@ export default function Game() {
     async (word: string) => {
       if (submitting) return
       setSubmitting(true)
-      let response
+      let response: SubmitGuessResponse|void
       try {
         response = await (await fetch(`/.netlify/functions/submit-guess?id=${game?.id}&guess=${word}`, {
           method: 'POST',
@@ -37,7 +38,7 @@ export default function Game() {
         setSubmitting(false)
       }
 
-      if (!response?.game) throw new Error('NO_GAME')
+      if (!response || !('game' in response)) throw new Error('NO_GAME')
       // TO DO - end game when no more lives
       if (response.game.lives <= 0) {
         alert(`Your Score Was ${response.game.score}. Nice`)
@@ -67,7 +68,6 @@ export default function Game() {
               key={word}
               label={word}
               onPress={() => {
-                console.log(`pressed ${word}`)
                 submitGuess(word)
               }}
             />

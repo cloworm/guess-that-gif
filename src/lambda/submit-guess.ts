@@ -3,7 +3,7 @@ import { APIGatewayEvent } from 'aws-lambda'
 import compose from 'compose-function'
 
 import { getGame } from './queries/getGame'
-import { Game } from '../../types'
+import { Game, SubmitGuessResponse } from '../../types'
 import { generateRound } from './lib/generateRound'
 import { httpMethod, httpRespond, Handler } from './lib/http'
 import { transformGame } from './lib/transformGame'
@@ -12,7 +12,7 @@ import { updateGame } from './queries/updateGame'
 export const handler: Handler = compose(
   httpRespond(),
   httpMethod('POST'),
-)(async (event: APIGatewayEvent) => {
+)(async (event: APIGatewayEvent): Promise<SubmitGuessResponse> => {
   const {
     id,
     guess

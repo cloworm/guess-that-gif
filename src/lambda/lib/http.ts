@@ -3,18 +3,18 @@ import { APIGatewayEvent, Context } from 'aws-lambda'
 export type Handler = (
   event: APIGatewayEvent,
   context: Context
-) => any
-
-export type HttpResponder = (
-  event: APIGatewayEvent,
-  context: Context
 ) => Promise<{
   statusCode: number,
   body: string,
 }>
 
+export type InnerHandler = (
+  event: APIGatewayEvent,
+  context: Context
+) => any
+
 export function httpMethod(method: 'GET' | 'POST') {
-  return (inner: Handler): Handler => {
+  return (inner: InnerHandler): InnerHandler => {
     return (
       event: APIGatewayEvent,
       context: Context
@@ -27,11 +27,11 @@ export function httpMethod(method: 'GET' | 'POST') {
 }
 
 export function httpRespond () {
-  return (inner: Handler): HttpResponder => {
+  return (inner: InnerHandler): Handler => {
     return async (
       event: APIGatewayEvent,
       context: Context
-    ): ReturnType<HttpResponder> => {
+    ): ReturnType<Handler> => {
       try {
         return {
           statusCode: 200,

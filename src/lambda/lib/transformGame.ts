@@ -1,4 +1,6 @@
-export function transformGame(gameResponse: any) {
+import { GameQueryResult } from '../../../types'
+
+export function transformGame(gameResponse: GameQueryResult) {
   return {
     id: gameResponse.ref.id,
     score: gameResponse.data.score,

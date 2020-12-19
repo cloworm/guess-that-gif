@@ -1,7 +1,7 @@
 import * as faunadb from 'faunadb'
-import { Game } from '../../../types'
+import { Game, GameQueryResult } from '../../../types'
 
-export async function updateGame(id: string, game: Game) {
+export function updateGame(id: string, game: Game): Promise<GameQueryResult> {
   const q = faunadb.query
 
   if (!process.env.FAUNADB_SERVER_SECRET) {
@@ -12,20 +12,10 @@ export async function updateGame(id: string, game: Game) {
     secret: process.env.FAUNADB_SERVER_SECRET
   })
 
-  try {
-    const res: any = await adminClient.query(
-      q.Update(
-        q.Ref(q.Collection('Game'), id),
-        { data: game }
-      )
+  return adminClient.query(
+    q.Update(
+      q.Ref(q.Collection('Game'), id),
+      { data: game }
     )
-
-    console.log('res', res)
-
-    return res
-
-  } catch(err) {
-    console.log('ERROR_GET_GAME', err)
-  }
-
+  )
 }

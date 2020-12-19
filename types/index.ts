@@ -9,6 +9,18 @@ export interface Game extends GameInput {
   roundHistory?: Round[]
 }
 
+export interface GameQueryResult {
+  ref: { id: string },
+  data: {
+    score: number,
+    lives: number
+    round: {
+      words: string[],
+      giphyUrl: string
+    }
+  }
+}
+
 export interface Round {
   words: string[]
   giphyUrl: string
